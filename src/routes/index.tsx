@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { overrides } = useAppState();
+  const { overrides, lang } = useAppState();
 
   const stats = useMemo(() => {
     const list = effectiveList(overrides);
@@ -54,10 +54,17 @@ function Index() {
             asChild
             size="lg"
             variant="outline"
-            className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10"
+            className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10 notranslate"
           >
             <Link to="/facilities">
-              <MapPin className="size-4" /> Browse nearby facilities
+              <MapPin className="size-4" />{" "}
+              {lang === "ta"
+                ? "அருகிலுள்ள மையங்களை தேடுக"
+                : lang === "hi"
+                  ? "आस-पास के केंद्र खोजें"
+                  : lang === "mr"
+                    ? "जवळपासची केंद्रे शोधा"
+                    : "Browse nearby facilities"}
             </Link>
           </Button>
         </div>
