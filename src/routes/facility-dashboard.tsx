@@ -234,37 +234,7 @@ function FacilityDashboardContent() {
           <div className="mb-3 flex items-center justify-between">
             <p className="font-semibold text-foreground">Patient queue</p>
             <div className="flex gap-2">
-              <Button onClick={() => {
-                const id = `CASE-${new Date().toISOString().replace(/\D/g, "").slice(0, 14)}`;
-                store.addCase({
-                  caseId: id,
-                  tokenId: `TKN-${Math.floor(Math.random() * 90000) + 10000}`,
-                  tokenNumber: `W-${Math.floor(Math.random() * 900) + 100}`,
-                  patientRef: "Walk-in Patient",
-                  phone: "N/A",
-                  healthIssue: "Walk-in (General Checkup)",
-                  analysis: {
-                    symptoms: ["Walk-in"],
-                    duration: "N/A",
-                    severity: "Low",
-                    context: "Walk-in",
-                    careRequirement: "Consultation",
-                    triage: "Routine",
-                    explanation: "Walk-in patient at facility",
-                    source: "rules"
-                  },
-                  phcId: phcId,
-                  facilityName: facility.name,
-                  district: facility.district,
-                  suitability: 100,
-                  status: "Waiting",
-                  reason: "Walk-in registration",
-                  followUpRequired: false,
-                  createdAt: new Date().toISOString()
-                });
-              }} variant="secondary" size="sm">
-                Log Walk-in
-              </Button>
+              <WalkInDialog phcId={phcId} facility={facility} />
               <Button asChild variant="outline" size="sm">
                 <Link to="/simulator">Open simulator</Link>
               </Button>
@@ -447,5 +417,96 @@ function Stat({
         </span>
       </CardContent>
     </Card>
+  );
+}
+
+function WalkInDialog({ phcId, facility }: { phcId: string; facility: any }) {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [symptoms, setSymptoms] = useState("");
+  const [triage, setTriage] = useState<"Routine" | "Urgent" | "Emergency">("Routine");
+
+  const handleLog = () => {
+    if (!name || !symptoms) return;
+    const id = `CASE-${new Date().toISOString().replace(/\D/g, "").slice(0, 14)}`;
+    store.addCase({
+      caseId: id,
+      tokenId: `TKN-${Math.floor(Math.random() * 90000) + 10000}`,
+      tokenNumber: `W-${Math.floor(Math.random() * 900) + 100}`,
+      patientRef: name,
+      phone: "Walk-in",
+      healthIssue: symptoms,
+      analysis: {
+        symptoms: [symptoms],
+        duration: "N/A",
+        severity: triage === "Emergency" ? "High" : triage === "Urgent" ? "Medium" : "Low",
+        context: "Walk-in",
+        careRequirement: "Consultation",
+        triage: triage,
+        explanation: "Manual receptionist triage",
+        source: "rules"
+      },
+      phcId: phcId,
+      facilityName: facility.name,
+      district: facility.district,
+      suitability: 100,
+      status: "Waiting",
+      reason: "Walk-in registration",
+      followUpRequired: false,
+      createdAt: new Date().toISOString()
+    });
+    setOpen(false);
+    setName("");
+    setSymptoms("");
+    setTriage("Routine");
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <Button variant="secondary" size="sm" onClick={() => setOpen(true)}>
+        Log Walk-in
+      </Button>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Register Walk-in Patient</DialogTitle>
+          <DialogDescription>
+            Log a patient who has arrived at the facility without a digital token.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="space-y-4 py-2">
+          <div className="space-y-1">
+            <label className="text-sm font-medium text-foreground">Patient Name</label>
+            <input 
+              className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary" 
+              placeholder="e.g. Ramesh Kumar" 
+              value={name} onChange={(e) => setName(e.target.value)} 
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-sm font-medium text-foreground">Symptoms</label>
+            <input 
+              className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary" 
+              placeholder="e.g. High fever, body ache" 
+              value={symptoms} onChange={(e) => setSymptoms(e.target.value)} 
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-sm font-medium text-foreground">Assessed Priority</label>
+            <select 
+              className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary"
+              value={triage} onChange={(e) => setTriage(e.target.value as any)}
+            >
+              <option value="Routine">🟢 Routine (e.g. Cold, minor pain)</option>
+              <option value="Urgent">🟡 Urgent (e.g. High fever, fracture)</option>
+              <option value="Emergency">🔴 Emergency (e.g. Chest pain, bleeding)</option>
+            </select>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button onClick={handleLog} disabled={!name || !symptoms}>Generate Token</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
