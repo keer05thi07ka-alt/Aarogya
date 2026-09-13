@@ -98,6 +98,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "apple-touch-icon", href: "https://cdn-icons-png.flaticon.com/512/3063/3063206.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -116,6 +118,17 @@ function RootShell({ children }: { children: ReactNode }) {
         <div id="google_translate_element" style={{ position: 'absolute', left: '-9999px' }}></div>
         {children}
         <Scripts />
+        
+        {/* PWA Service Worker Registration */}
+        <script dangerouslySetInnerHTML={{ __html: `
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+              navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(err => {
+                console.log('SW registration failed: ', err);
+              });
+            });
+          }
+        `}} />
         {/* Hide the google translate widget UI */}
         <style dangerouslySetInnerHTML={{__html: `
           .goog-te-banner-frame { display: none !important; }
