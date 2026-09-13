@@ -64,6 +64,14 @@ function Index() {
                   ? "आस-पास के केंद्र खोजें"
                   : lang === "mr"
                     ? "जवळपासची केंद्रे शोधा"
+                    : "Browse nearby facilities"}
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10 bg-[#25D366]/20 border-[#25D366]/50">
+            <Link to="/whatsapp">
+              Offline SMS / WhatsApp
+            </Link>
+          </Button>
         </div>
       </section>
 

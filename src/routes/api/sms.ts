@@ -16,7 +16,7 @@ export const APIRoute = createAPIFileRoute("/api/sms")({
     if (isGreeting) {
       const twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Message>👋 Namaste! Welcome to Aarogya Health Services.
+    <Message>👋 Namaste! Welcome to Aarogya SMS Booking.
 
 Please reply with:
 1. Your symptoms
