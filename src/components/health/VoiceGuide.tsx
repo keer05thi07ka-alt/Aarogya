@@ -68,11 +68,23 @@ export function VoiceGuide() {
     }
 
     const utterance = new SpeechSynthesisUtterance(guideText);
-    utterance.lang = LANG_MAP[lang] || "en-IN";
+    const targetLang = LANG_MAP[lang] || "en-IN";
+    utterance.lang = targetLang;
+    
+    // Explicitly try to find a matching voice for the language
+    const voices = window.speechSynthesis.getVoices();
+    const matchingVoice = voices.find(v => v.lang === targetLang) || voices.find(v => v.lang.startsWith(lang));
+    if (matchingVoice) {
+      utterance.voice = matchingVoice;
+    }
+
     utterance.rate = 0.9; // Speak slightly slower for elderly users
     
     utterance.onend = () => setIsPlaying(false);
-    utterance.onerror = () => setIsPlaying(false);
+    utterance.onerror = (e) => {
+      console.error("Speech error", e);
+      setIsPlaying(false);
+    };
 
     window.speechSynthesis.speak(utterance);
     setIsPlaying(true);
