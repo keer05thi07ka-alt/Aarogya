@@ -17,13 +17,13 @@ export const APIRoute = createAPIFileRoute("/api/sms")({
 
     if (isEmergency) {
       triage = "Emergency";
-      replyText = "🚨 EMERGENCY DETECTED 🚨\nPriority: RED\nWait Time: 0 mins\n🏥 Match: District Hospital\n✅ Token: E-991\nAmbulance alerted.";
+      replyText = "🚨 EMERGENCY DETECTED 🚨\nPriority: RED\nWait Time: 0 mins\n🏥 Match: Gadchiroli District Hospital\n✅ Token: E-991\nAmbulance alerted.";
     } else if (isUrgent) {
       triage = "Urgent";
-      replyText = "🏥 Match: North District PHC\nPriority: YELLOW\nWait Time: ~15 mins\n✅ Token: T-8492\nShow this SMS at reception.";
+      replyText = "🏥 Match: Kurkheda Primary Health Centre\nPriority: YELLOW\nWait Time: ~15 mins\n✅ Token: T-8492\nShow this SMS at reception.";
     } else {
       triage = "Routine";
-      replyText = "🏥 Match: Village Sub-Centre\nPriority: GREEN\nWait Time: ~45 mins\n✅ Token: R-102\nShow this SMS at reception.";
+      replyText = "🏥 Match: Karanji Village Sub-Centre\nPriority: GREEN\nWait Time: ~45 mins\n✅ Token: R-102\nShow this SMS at reception.";
     }
 
     // Return TwiML XML response for Twilio
