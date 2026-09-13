@@ -45,11 +45,23 @@ function WhatsappSimulator() {
     // Simulate bot reply
     setTimeout(() => {
       setIsTyping(false);
+      
+      let replyText = "";
+      const lower = userMsg.toLowerCase();
+      
+      if (lower.includes("blood") || lower.includes("accident") || lower.includes("chest") || lower.includes("heart") || lower.includes("snake") || lower.includes("breath")) {
+        replyText = `🚨 EMERGENCY DETECTED 🚨\n\nPriority: RED (Emergency)\nLive Wait Time: 0 mins (Bypass Queue)\n\n🏥 Match found: District Hospital\n✅ Your Token: E-991\n\nPlease proceed immediately. Ambulance has been alerted.`;
+      } else if (lower.includes("fever") || lower.includes("pain") || lower.includes("vomit") || lower.includes("dengue")) {
+        replyText = `🏥 Match found: North District PHC\n\nPriority: YELLOW (Urgent)\nLive Wait Time: ~15 mins\n\n✅ Your Token: T-8492\n\nShow this SMS at the reception.`;
+      } else {
+        replyText = `🏥 Match found: Village Sub-Centre\n\nPriority: GREEN (Routine)\nLive Wait Time: ~45 mins\n\n✅ Your Token: R-102\n\nShow this SMS at the reception.`;
+      }
+
       setMessages((prev) => [
         ...prev,
         {
           id: Date.now(),
-          text: `🏥 Match found: North District PHC\n\nPriority: YELLOW (Moderate)\nLive Wait Time: ~15 mins\n\n✅ Your Token: T-8492\n\nShow this SMS at the reception.`,
+          text: replyText,
           sender: "bot",
           time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
         },
