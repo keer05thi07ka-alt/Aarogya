@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/health/AppShell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -49,7 +49,7 @@ function WhatsappSimulator() {
         ...prev,
         {
           id: Date.now(),
-          text: 🏥 Match found: North District PHC\n\nPriority: YELLOW (Moderate)\nLive Wait Time: ~15 mins\n\n✅ Your Token: T-8492\n\nShow this SMS at the reception.,
+          text: `🏥 Match found: North District PHC\n\nPriority: YELLOW (Moderate)\nLive Wait Time: ~15 mins\n\n✅ Your Token: T-8492\n\nShow this SMS at the reception.`,
           sender: "bot",
           time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}),
         },
@@ -76,7 +76,11 @@ function WhatsappSimulator() {
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={max-w-[80%] rounded-lg p-3 text-sm shadow-sm }
+              className={`max-w-[80%] rounded-lg p-3 text-sm shadow-sm ${
+                msg.sender === "user"
+                  ? "self-end bg-[#d9fdd3] text-[#111b21] dark:bg-[#005c4b] dark:text-[#e9edef]"
+                  : "self-start bg-white text-[#111b21] dark:bg-[#202c33] dark:text-[#e9edef]"
+              }`}
             >
               <p className="whitespace-pre-wrap">{msg.text}</p>
               <p className="mt-1 text-right text-[10px] opacity-60">{msg.time}</p>
