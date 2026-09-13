@@ -51,10 +51,13 @@ function WhatsappSimulator() {
       let triage: "Emergency" | "Urgent" | "Routine" = "Routine";
       const lower = userMsg.toLowerCase();
       
-      if (lower.includes("blood") || lower.includes("accident") || lower.includes("chest") || lower.includes("heart") || lower.includes("snake") || lower.includes("breath")) {
+      const isEmergency = ["blood", "accident", "chest", "heart", "snake", "breath", "retham", "raththam", "nenju", "vali", "mayakkam", "paambu", "moochu", "adi"].some(k => lower.includes(k));
+      const isUrgent = ["fever", "pain", "vomit", "dengue", "juram", "kaichal", "vaanthi", "vanthi", "vairo"].some(k => lower.includes(k));
+
+      if (isEmergency) {
         triage = "Emergency";
         replyText = `🚨 EMERGENCY DETECTED 🚨\n\nPriority: RED (Emergency)\nLive Wait Time: 0 mins (Bypass Queue)\n\n🏥 Match found: District Hospital\n✅ Your Token: E-991\n\nPlease proceed immediately. Ambulance has been alerted.`;
-      } else if (lower.includes("fever") || lower.includes("pain") || lower.includes("vomit") || lower.includes("dengue")) {
+      } else if (isUrgent) {
         triage = "Urgent";
         replyText = `🏥 Match found: North District PHC\n\nPriority: YELLOW (Urgent)\nLive Wait Time: ~15 mins\n\n✅ Your Token: T-8492\n\nShow this SMS at the reception.`;
       } else {
