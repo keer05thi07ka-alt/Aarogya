@@ -33,6 +33,35 @@ export function TokenCard({ record }: { record: CaseRecord }) {
               <StatusBadge status={record.status} />
             </div>
           </div>
+        </div>
+        
+        {/* Live Queue Tracking Feature */}
+        {record.status === "pending" && (
+          <div className={`mt-4 rounded-xl border p-4 ${record.analysis.triage === 'red' ? 'bg-red-500/10 border-red-500/20' : 'bg-secondary/50 border-border'}`}>
+            <p className="mb-2 text-xs font-bold uppercase tracking-wider text-muted-foreground">Live Queue Status</p>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-2xl font-bold text-foreground">
+                  {record.analysis.triage === 'red' ? '0' : record.analysis.triage === 'yellow' ? '12' : '45'} <span className="text-sm font-normal text-muted-foreground">mins</span>
+                </p>
+                <p className="text-xs text-muted-foreground">Estimated Wait</p>
+              </div>
+              <div className="text-right">
+                <p className="text-2xl font-bold text-foreground">
+                  {record.analysis.triage === 'red' ? '0' : record.analysis.triage === 'yellow' ? '3' : '14'}
+                </p>
+                <p className="text-xs text-muted-foreground">People Ahead</p>
+              </div>
+            </div>
+            {record.analysis.triage === 'red' && (
+              <p className="mt-3 rounded bg-red-500/20 px-2 py-1 text-center text-xs font-semibold text-red-600 dark:text-red-400">
+                🚨 SMART TRIAGE: PRIORITY ACCESS GRANTED
+              </p>
+            )}
+          </div>
+        )}
+
+        <div className="grid grid-cols-2 gap-4 text-sm mt-4">
           <Field
             label="Date"
             value={new Date(record.createdAt).toLocaleDateString("en-IN", {
