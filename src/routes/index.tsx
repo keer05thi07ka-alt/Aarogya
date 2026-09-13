@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppState } from "@/lib/store";
 import { effectiveList } from "@/lib/recommend";
+import { STRINGS, type Lang } from "@/lib/i18n";
 import { HeartPulse, MapPin, MessageCircle, ShieldCheck, Stethoscope } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { overrides, lang } = useAppState();
+  const t = STRINGS[lang as Lang] || STRINGS.en;
 
   const stats = useMemo(() => {
     const list = effectiveList(overrides);
@@ -37,17 +39,16 @@ function Index() {
         <span className="mx-auto flex size-16 items-center justify-center rounded-2xl bg-white/15">
           <HeartPulse className="size-8" />
         </span>
-        <h1 className="mx-auto mt-6 max-w-2xl text-3xl font-bold sm:text-4xl">
-          Connecting every rural patient to the right care
+        <h1 className="mx-auto mt-6 max-w-2xl text-3xl font-bold sm:text-4xl notranslate">
+          {t.homeTitle}
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-sm text-primary-foreground/85 sm:text-base">
-          Tell us what's wrong. We'll find the nearest health centre that actually has a doctor
-          on duty and the right medicine in stock — right now, not just on paper.
+        <p className="mx-auto mt-4 max-w-xl text-sm text-primary-foreground/85 sm:text-base notranslate">
+          {t.homeSubtitle}
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Button asChild size="lg" variant="secondary" className="shadow-card">
+          <Button asChild size="lg" variant="secondary" className="shadow-card notranslate">
             <Link to="/chat">
-              <MessageCircle className="size-4" /> Start symptom check
+              <MessageCircle className="size-4" /> {t.homeStart}
             </Link>
           </Button>
           <Button
@@ -57,40 +58,33 @@ function Index() {
             className="border-white/40 bg-transparent text-primary-foreground hover:bg-white/10 notranslate"
           >
             <Link to="/facilities">
-              <MapPin className="size-4" />{" "}
-              {lang === "ta"
-                ? "அருகிலுள்ள மையங்களை தேடுக"
-                : lang === "hi"
-                  ? "आस-पास के केंद्र खोजें"
-                  : lang === "mr"
-                    ? "जवळपासची केंद्रे शोधा"
-                    : "Browse nearby facilities"}
+              <MapPin className="size-4" /> {t.homeBrowse}
             </Link>
           </Button>
         </div>
       </section>
 
       <section className="mt-8 grid gap-4 sm:grid-cols-3">
-        <StatCard label="Facilities tracked" value={stats.total} icon={ShieldCheck} />
-        <StatCard label="Doctors available today" value={stats.doctors} icon={Stethoscope} />
-        <StatCard label="Facilities with critical stockouts" value={stats.critical} icon={HeartPulse} tone="warning" />
+        <StatCard label={t.homeStatsTracked} value={stats.total} icon={ShieldCheck} />
+        <StatCard label={t.homeStatsDoctors} value={stats.doctors} icon={Stethoscope} />
+        <StatCard label={t.homeStatsCritical} value={stats.critical} icon={HeartPulse} tone="warning" />
       </section>
 
       <section className="mt-10 grid gap-4 sm:grid-cols-3">
         <InfoCard
           step="1"
-          title="Describe your symptoms"
-          body="Type or speak in your own words — English, Hindi or Marathi. Our triage engine understands severity and duration."
+          title={t.homeStep1Title}
+          body={t.homeStep1Body}
         />
         <InfoCard
           step="2"
-          title="Get matched to real availability"
-          body="We rank nearby PHCs by live doctor presence, medicine stock, and specialist fit — not just distance."
+          title={t.homeStep2Title}
+          body={t.homeStep2Body}
         />
         <InfoCard
           step="3"
-          title="Walk in with a token"
-          body="Get a token number and turn-by-turn directions, so the facility already knows you're coming."
+          title={t.homeStep3Title}
+          body={t.homeStep3Body}
         />
       </section>
 
@@ -130,7 +124,7 @@ function StatCard({
     <Card>
       <CardContent className="flex items-center justify-between pt-5">
         <div>
-          <p className="text-sm text-muted-foreground">{label}</p>
+          <p className="text-sm text-muted-foreground notranslate">{label}</p>
           <p className={`text-2xl font-bold ${tone === "warning" ? "text-destructive" : "text-foreground"}`}>
             {value}
           </p>
@@ -154,8 +148,8 @@ function InfoCard({ step, title, body }: { step: string; title: string; body: st
         <span className="flex size-8 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
           {step}
         </span>
-        <p className="font-semibold text-foreground">{title}</p>
-        <p className="text-sm text-muted-foreground">{body}</p>
+        <p className="font-semibold text-foreground notranslate">{title}</p>
+        <p className="text-sm text-muted-foreground notranslate">{body}</p>
       </CardContent>
     </Card>
   );

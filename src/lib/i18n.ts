@@ -27,6 +27,19 @@ type Strings = {
   noLocationNote: string;
   locationDeniedToast: string;
   chips: Record<ChipKey, { label: string; text: string }>;
+  homeTitle: string;
+  homeSubtitle: string;
+  homeStart: string;
+  homeBrowse: string;
+  homeStatsTracked: string;
+  homeStatsDoctors: string;
+  homeStatsCritical: string;
+  homeStep1Title: string;
+  homeStep1Body: string;
+  homeStep2Title: string;
+  homeStep2Body: string;
+  homeStep3Title: string;
+  homeStep3Body: string;
 };
 
 export const STRINGS: Record<Lang, Strings> = {
@@ -61,6 +74,19 @@ export const STRINGS: Record<Lang, Strings> = {
         text: "This is an emergency, chest pain and difficulty breathing",
       },
     },
+    homeTitle: "Connecting every rural patient to the right care",
+    homeSubtitle: "Tell us what's wrong. We'll find the nearest health centre that actually has a doctor on duty and the right medicine in stock — right now, not just on paper.",
+    homeStart: "Start symptom check",
+    homeBrowse: "Browse nearby facilities",
+    homeStatsTracked: "Facilities tracked",
+    homeStatsDoctors: "Doctors available today",
+    homeStatsCritical: "Facilities with critical stockouts",
+    homeStep1Title: "Describe your symptoms",
+    homeStep1Body: "Type or speak in your own words. Our triage engine understands severity and duration.",
+    homeStep2Title: "Get matched to real availability",
+    homeStep2Body: "We rank nearby PHCs by live doctor presence, medicine stock, and specialist fit — not just distance.",
+    homeStep3Title: "Walk in with a token",
+    homeStep3Body: "Get a token number and turn-by-turn directions, so the facility already knows you're coming.",
   },
   hi: {
     greeting:
@@ -89,6 +115,19 @@ export const STRINGS: Record<Lang, Strings> = {
         text: "यह एक आपातकाल है, सीने में दर्द और सांस लेने में तकलीफ है",
       },
     },
+    homeTitle: "हर ग्रामीण मरीज को सही देखभाल से जोड़ना",
+    homeSubtitle: "हमें बताएं कि क्या समस्या है। हम सबसे नज़दीकी स्वास्थ्य केंद्र खोजेंगे जहाँ वास्तव में डॉक्टर ड्यूटी पर हैं और सही दवा उपलब्ध है।",
+    homeStart: "लक्षण जांच शुरू करें",
+    homeBrowse: "आस-पास के केंद्र खोजें",
+    homeStatsTracked: "ट्रैक किए गए केंद्र",
+    homeStatsDoctors: "आज उपलब्ध डॉक्टर",
+    homeStatsCritical: "दवाओं की कमी वाले केंद्र",
+    homeStep1Title: "अपने लक्षणों का वर्णन करें",
+    homeStep1Body: "अपने शब्दों में टाइप करें या बोलें। हमारा सिस्टम गंभीरता को समझता है।",
+    homeStep2Title: "वास्तविक उपलब्धता से मिलान करें",
+    homeStep2Body: "हम केवल दूरी नहीं, बल्कि लाइव डॉक्टर की उपस्थिति और दवा के स्टॉक के आधार पर PHC रैंक करते हैं।",
+    homeStep3Title: "टोकन के साथ जाएं",
+    homeStep3Body: "टोकन नंबर प्राप्त करें ताकि केंद्र को आपके आने की पहले से जानकारी हो।",
   },
   mr: {
     greeting:
@@ -117,6 +156,19 @@ export const STRINGS: Record<Lang, Strings> = {
         text: "ही आणीबाणी आहे, छातीत दुखणे आणि श्वास घेण्यास त्रास होत आहे",
       },
     },
+    homeTitle: "प्रत्येक ग्रामीण रुग्णाला योग्य उपचारांशी जोडणे",
+    homeSubtitle: "तुम्हाला काय त्रास होत आहे ते आम्हाला सांगा. आम्ही जवळचे आरोग्य केंद्र शोधू जिथे खरोखरच डॉक्टर ड्युटीवर आहेत आणि योग्य औषध उपलब्ध आहे.",
+    homeStart: "लक्षणे तपासणी सुरू करा",
+    homeBrowse: "जवळपासची केंद्रे शोधा",
+    homeStatsTracked: "ट्रॅक केलेली केंद्रे",
+    homeStatsDoctors: "आज उपलब्ध डॉक्टर",
+    homeStatsCritical: "औषधांचा तुटवडा असलेली केंद्रे",
+    homeStep1Title: "तुमच्या लक्षणांचे वर्णन करा",
+    homeStep1Body: "तुमच्या स्वतःच्या शब्दात टाइप करा किंवा बोला. आमची प्रणाली गांभीर्य समजते.",
+    homeStep2Title: "वास्तविक उपलब्धतेशी जुळवा",
+    homeStep2Body: "आम्ही केवळ अंतर नाही तर थेट डॉक्टरांची उपस्थिती आणि औषधांच्या साठ्यावर आधारित PHC रँक करतो.",
+    homeStep3Title: "टोकन घेऊन जा",
+    homeStep3Body: "टोकन नंबर मिळवा जेणेकरून तुम्ही येत आहात हे केंद्राला आधीच माहीत असेल.",
   },
   ta: {
     greeting:
@@ -148,6 +200,19 @@ export const STRINGS: Record<Lang, Strings> = {
         text: "இது ஒரு அவசரநிலை, மார்பு வலி மற்றும் மூச்சு திணறல் உள்ளது",
       },
     },
+    homeTitle: "ஒவ்வொரு கிராமப்புற நோயாளியையும் சரியான சிகிச்சையுடன் இணைத்தல்",
+    homeSubtitle: "உங்கள் பிரச்சனையை எங்களிடம் கூறுங்கள். உண்மையில் மருத்துவர் இருக்கும் மற்றும் சரியான மருந்து இருப்பில் உள்ள அருகிலுள்ள சுகாதார மையத்தை நாங்கள் கண்டுபிடிப்போம்.",
+    homeStart: "அறிகுறி பரிசோதனையைத் தொடங்கு",
+    homeBrowse: "அருகிலுள்ள மையங்களை தேடுக",
+    homeStatsTracked: "கண்காணிக்கப்படும் மையங்கள்",
+    homeStatsDoctors: "இன்று உள்ள மருத்துவர்கள்",
+    homeStatsCritical: "மருந்து தட்டுப்பாடு உள்ள மையங்கள்",
+    homeStep1Title: "உங்கள் அறிகுறிகளை விவரிக்கவும்",
+    homeStep1Body: "உங்கள் சொந்த வார்த்தைகளில் தட்டச்சு செய்யவும் அல்லது பேசவும். எங்கள் அமைப்பு தீவிரத்தை புரிந்து கொள்ளும்.",
+    homeStep2Title: "உண்மையான இருப்பை கண்டறியுங்கள்",
+    homeStep2Body: "தூரத்தை மட்டுமல்ல, நேரடி மருத்துவர் இருப்பு மற்றும் மருந்து இருப்பின் அடிப்படையில் PHC-களை நாங்கள் வரிசைப்படுத்துகிறோம்.",
+    homeStep3Title: "டோக்கனுடன் செல்லுங்கள்",
+    homeStep3Body: "ஒரு டோக்கன் எண்ணைப் பெறுங்கள், எனவே நீங்கள் வருகிறீர்கள் என்பதை மையம் முன்கூட்டியே அறியும்.",
   },
 };
 

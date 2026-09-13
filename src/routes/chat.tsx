@@ -224,9 +224,10 @@ function ChatPageContent() {
 
   return (
     <AppShell
-      title="Symptom check"
-      subtitle="Describe how you're feeling — we'll find the right facility."
+      title={strings.chatTitle || "Symptom check"}
+      subtitle={strings.chatSubtitle || "Describe how you're feeling — we'll find the right facility."}
     >
+      <div className="notranslate">
       {listening && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-6 rounded-2xl bg-background p-8 shadow-xl">
@@ -380,6 +381,7 @@ function ChatPageContent() {
         >
           {busy ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
         </Button>
+      </div>
       </div>
     </AppShell>
   );
