@@ -1,4 +1,4 @@
-﻿import { json } from "@tanstack/react-start";
+import { json } from "@tanstack/react-start";
 import { createAPIFileRoute } from "@tanstack/react-start/api";
 
 export const APIRoute = createAPIFileRoute("/api/sms")({
@@ -27,10 +27,10 @@ export const APIRoute = createAPIFileRoute("/api/sms")({
     }
 
     // Return TwiML XML response for Twilio
-    const twiml = <?xml version="1.0" encoding="UTF-8"?>
+    const twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Message></Message>
-</Response>;
+    <Message>${replyText}</Message>
+</Response>`;
 
     return new Response(twiml, {
       headers: {
