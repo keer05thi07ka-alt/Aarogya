@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useRef, useEffect } from "react";
 import { Send, Phone } from "lucide-react";
+import { store } from "@/lib/store";
 
 export const Route = createFileRoute("/whatsapp")({
   head: () => ({ meta: [{ title: "Offline SMS Booking — Aarogya Setu Kadi" }] }),
@@ -47,15 +48,47 @@ function WhatsappSimulator() {
       setIsTyping(false);
       
       let replyText = "";
+      let triage: "Emergency" | "Urgent" | "Routine" = "Routine";
       const lower = userMsg.toLowerCase();
       
       if (lower.includes("blood") || lower.includes("accident") || lower.includes("chest") || lower.includes("heart") || lower.includes("snake") || lower.includes("breath")) {
+        triage = "Emergency";
         replyText = `🚨 EMERGENCY DETECTED 🚨\n\nPriority: RED (Emergency)\nLive Wait Time: 0 mins (Bypass Queue)\n\n🏥 Match found: District Hospital\n✅ Your Token: E-991\n\nPlease proceed immediately. Ambulance has been alerted.`;
       } else if (lower.includes("fever") || lower.includes("pain") || lower.includes("vomit") || lower.includes("dengue")) {
+        triage = "Urgent";
         replyText = `🏥 Match found: North District PHC\n\nPriority: YELLOW (Urgent)\nLive Wait Time: ~15 mins\n\n✅ Your Token: T-8492\n\nShow this SMS at the reception.`;
       } else {
+        triage = "Routine";
         replyText = `🏥 Match found: Village Sub-Centre\n\nPriority: GREEN (Routine)\nLive Wait Time: ~45 mins\n\n✅ Your Token: R-102\n\nShow this SMS at the reception.`;
       }
+
+      // Add to central database so it appears on the dashboard!
+      store.addCase({
+        caseId: `CASE-${new Date().toISOString().replace(/\D/g, "").slice(0, 14)}`,
+        tokenId: `TKN-${Math.floor(Math.random() * 90000) + 10000}`,
+        tokenNumber: triage === "Emergency" ? "E-991" : triage === "Urgent" ? "T-8492" : "R-102",
+        patientRef: "SMS User",
+        phone: "+91 XXXXX XXXXX",
+        healthIssue: userMsg,
+        analysis: {
+          symptoms: [userMsg],
+          duration: "N/A",
+          severity: triage === "Emergency" ? "High" : triage === "Urgent" ? "Medium" : "Low",
+          context: "SMS Booking",
+          careRequirement: "Consultation",
+          triage: triage,
+          explanation: "AI SMS Triage",
+          source: "ai"
+        },
+        phcId: "PHC-104", // Hardcoded to match manager's default facility
+        facilityName: "North District PHC",
+        district: "Gadchiroli",
+        suitability: 100,
+        status: "Waiting",
+        reason: "SMS Booking",
+        followUpRequired: false,
+        createdAt: new Date().toISOString()
+      });
 
       setMessages((prev) => [
         ...prev,
