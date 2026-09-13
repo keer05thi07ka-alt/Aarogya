@@ -56,13 +56,13 @@ function WhatsappSimulator() {
 
       if (isEmergency) {
         triage = "Emergency";
-        replyText = `🚨 EMERGENCY DETECTED 🚨\n\nPriority: RED (Emergency)\nLive Wait Time: 0 mins (Bypass Queue)\n\n🏥 Match found: District Hospital\n✅ Your Token: E-991\n\nPlease proceed immediately. Ambulance has been alerted.`;
+        replyText = `🚨 EMERGENCY DETECTED 🚨\n\nPriority: RED (Emergency)\nLive Wait Time: 0 mins (Bypass Queue)\n\n🏥 Match found: Gadchiroli District Hospital\n✅ Your Token: E-991\n\nPlease proceed immediately. Ambulance has been alerted.`;
       } else if (isUrgent) {
         triage = "Urgent";
-        replyText = `🏥 Match found: North District PHC\n\nPriority: YELLOW (Urgent)\nLive Wait Time: ~15 mins\n\n✅ Your Token: T-8492\n\nShow this SMS at the reception.`;
+        replyText = `🏥 Match found: Kurkheda Primary Health Centre\n\nPriority: YELLOW (Urgent)\nLive Wait Time: ~15 mins\n\n✅ Your Token: T-8492\n\nShow this SMS at the reception.`;
       } else {
         triage = "Routine";
-        replyText = `🏥 Match found: Village Sub-Centre\n\nPriority: GREEN (Routine)\nLive Wait Time: ~45 mins\n\n✅ Your Token: R-102\n\nShow this SMS at the reception.`;
+        replyText = `🏥 Match found: Karanji Village Sub-Centre\n\nPriority: GREEN (Routine)\nLive Wait Time: ~45 mins\n\n✅ Your Token: R-102\n\nShow this SMS at the reception.`;
       }
 
       // Add to central database so it appears on the dashboard!
@@ -106,28 +106,28 @@ function WhatsappSimulator() {
   };
 
   return (
-    <AppShell title="Offline Mode Simulator" subtitle="How patients without smartphones or internet can book via SMS / WhatsApp">
-      <div className="mx-auto max-w-md overflow-hidden rounded-3xl border border-border bg-[#efeae2] shadow-xl dark:bg-[#0b141a]">
-        {/* WhatsApp Header */}
-        <div className="flex items-center gap-3 bg-[#008069] px-4 py-3 text-white dark:bg-[#202c33]">
-          <div className="flex size-10 items-center justify-center rounded-full bg-white/20">
-            <Phone className="size-5" />
+    <AppShell title="Offline Mode Simulator" subtitle="How patients without smartphones or internet can book via standard SMS">
+      <div className="mx-auto max-w-md overflow-hidden rounded-3xl border border-border bg-background shadow-xl">
+        {/* SMS Header */}
+        <div className="flex items-center gap-3 border-b border-border bg-card px-4 py-3 text-card-foreground">
+          <div className="flex size-10 items-center justify-center rounded-full bg-secondary">
+            <span className="text-sm font-bold">55444</span>
           </div>
           <div>
-            <p className="font-semibold">Aarogya SMS Booking</p>
-            <p className="text-xs text-white/80">Online</p>
+            <p className="font-semibold">Aarogya SMS Govt Shortcode</p>
+            <p className="text-xs text-muted-foreground">Text to book a token</p>
           </div>
         </div>
 
         {/* Chat Body */}
-        <div className="flex h-[400px] flex-col gap-3 overflow-y-auto p-4 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-contain">
+        <div className="flex h-[400px] flex-col gap-3 overflow-y-auto p-4 bg-muted/30">
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`max-w-[80%] rounded-lg p-3 text-sm shadow-sm ${
+              className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm shadow-sm ${
                 msg.sender === "user"
-                  ? "self-end bg-[#d9fdd3] text-[#111b21] dark:bg-[#005c4b] dark:text-[#e9edef]"
-                  : "self-start bg-white text-[#111b21] dark:bg-[#202c33] dark:text-[#e9edef]"
+                  ? "self-end bg-blue-600 text-white rounded-br-sm"
+                  : "self-start bg-secondary text-secondary-foreground rounded-bl-sm"
               }`}
             >
               <p className="whitespace-pre-wrap">{msg.text}</p>
@@ -135,11 +135,11 @@ function WhatsappSimulator() {
             </div>
           ))}
           {isTyping && (
-            <div className="self-start rounded-lg bg-white p-3 text-sm shadow-sm dark:bg-[#202c33]">
+            <div className="self-start rounded-2xl rounded-bl-sm bg-secondary px-4 py-3 text-sm shadow-sm">
               <span className="flex gap-1">
-                <span className="size-2 animate-bounce rounded-full bg-gray-400"></span>
-                <span className="size-2 animate-bounce rounded-full bg-gray-400 delay-75"></span>
-                <span className="size-2 animate-bounce rounded-full bg-gray-400 delay-150"></span>
+                <span className="size-2 animate-bounce rounded-full bg-foreground/40"></span>
+                <span className="size-2 animate-bounce rounded-full bg-foreground/40 delay-75"></span>
+                <span className="size-2 animate-bounce rounded-full bg-foreground/40 delay-150"></span>
               </span>
             </div>
           )}
@@ -147,18 +147,18 @@ function WhatsappSimulator() {
         </div>
 
         {/* Input Area */}
-        <div className="flex items-center gap-2 bg-[#f0f2f5] p-3 dark:bg-[#202c33]">
+        <div className="flex items-center gap-2 border-t border-border bg-card p-3">
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            placeholder="Message (e.g. Fever)..."
-            className="rounded-full border-none bg-white shadow-sm focus-visible:ring-0 dark:bg-[#2a3942]"
+            placeholder="Text Message"
+            className="rounded-full bg-muted shadow-none focus-visible:ring-1 focus-visible:ring-blue-500"
           />
           <Button
             onClick={handleSend}
             size="icon"
-            className="size-10 rounded-full bg-[#00a884] hover:bg-[#008f6f]"
+            className="size-10 rounded-full bg-blue-600 hover:bg-blue-700"
           >
             <Send className="size-4 text-white" />
           </Button>
