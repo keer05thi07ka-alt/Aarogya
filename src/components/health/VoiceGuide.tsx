@@ -85,7 +85,9 @@ export function VoiceGuide() {
       className={`fixed bottom-6 right-6 z-50 rounded-full shadow-2xl transition-all duration-300 ${isPlaying ? 'bg-destructive hover:bg-destructive/90 animate-pulse' : 'bg-primary hover:bg-primary/90'}`}
     >
       {isPlaying ? <VolumeX className="size-6 mr-2" /> : <Volume2 className="size-6 mr-2" />}
-      {isPlaying ? (lang === 'hi' ? 'रोकें' : lang === 'mr' ? 'थांबवा' : lang === 'ta' ? 'நிறுத்து' : 'Stop') : (lang === 'hi' ? 'आवाज़ गाइड' : lang === 'mr' ? 'आवाज मार्गदर्शक' : lang === 'ta' ? 'குரல் வழிகாட்டி' : 'Voice Guide')}
+      <span className="notranslate">
+        {isPlaying ? (lang === 'hi' ? 'रोकें' : lang === 'mr' ? 'थांबवा' : lang === 'ta' ? 'நிறுத்து' : 'Stop') : (lang === 'hi' ? 'आवाज़ गाइड' : lang === 'mr' ? 'आवाज मार्गदर्शक' : lang === 'ta' ? 'குரல் வழிகாட்டி' : 'Voice Guide')}
+      </span>
     </Button>
   );
 }
