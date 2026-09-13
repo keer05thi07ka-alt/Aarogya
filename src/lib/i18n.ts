@@ -40,6 +40,14 @@ type Strings = {
   homeStep2Body: string;
   homeStep3Title: string;
   homeStep3Body: string;
+  chatTitle: string;
+  chatSubtitle: string;
+  phoneLabel: string;
+  phoneDesc: string;
+  phonePlaceholder: string;
+  phoneError: string;
+  locationOn: string;
+  locationOff: string;
 };
 
 export const STRINGS: Record<Lang, Strings> = {
@@ -87,6 +95,14 @@ export const STRINGS: Record<Lang, Strings> = {
     homeStep2Body: "We rank nearby PHCs by live doctor presence, medicine stock, and specialist fit — not just distance.",
     homeStep3Title: "Walk in with a token",
     homeStep3Body: "Get a token number and turn-by-turn directions, so the facility already knows you're coming.",
+    chatTitle: "Symptom check",
+    chatSubtitle: "Describe how you're feeling — we'll find the right facility.",
+    phoneLabel: "Phone number",
+    phoneDesc: "— required to generate a token, so a health worker can reach you",
+    phonePlaceholder: "10-digit mobile number",
+    phoneError: "Enter a valid 10-digit mobile number.",
+    locationOn: "Using your location",
+    locationOff: "Location off — using district only",
   },
   hi: {
     greeting:
@@ -128,6 +144,14 @@ export const STRINGS: Record<Lang, Strings> = {
     homeStep2Body: "हम केवल दूरी नहीं, बल्कि लाइव डॉक्टर की उपस्थिति और दवा के स्टॉक के आधार पर PHC रैंक करते हैं।",
     homeStep3Title: "टोकन के साथ जाएं",
     homeStep3Body: "टोकन नंबर प्राप्त करें ताकि केंद्र को आपके आने की पहले से जानकारी हो।",
+    chatTitle: "लक्षण जांच",
+    chatSubtitle: "बताएं कि आप कैसा महसूस कर रहे हैं — हम सही केंद्र खोजेंगे।",
+    phoneLabel: "फोन नंबर",
+    phoneDesc: "— टोकन बनाने के लिए आवश्यक, ताकि स्वास्थ्य कार्यकर्ता आपसे संपर्क कर सके",
+    phonePlaceholder: "10 अंकों का मोबाइल नंबर",
+    phoneError: "कृपया एक वैध 10-अंकीय मोबाइल नंबर दर्ज करें।",
+    locationOn: "आपके लोकेशन का उपयोग कर रहा है",
+    locationOff: "लोकेशन बंद है — केवल जिले का उपयोग कर रहा है",
   },
   mr: {
     greeting:
@@ -169,6 +193,14 @@ export const STRINGS: Record<Lang, Strings> = {
     homeStep2Body: "आम्ही केवळ अंतर नाही तर थेट डॉक्टरांची उपस्थिती आणि औषधांच्या साठ्यावर आधारित PHC रँक करतो.",
     homeStep3Title: "टोकन घेऊन जा",
     homeStep3Body: "टोकन नंबर मिळवा जेणेकरून तुम्ही येत आहात हे केंद्राला आधीच माहीत असेल.",
+    chatTitle: "लक्षणे तपासणी",
+    chatSubtitle: "तुम्हाला कसे वाटत आहे ते सांगा — आम्ही योग्य केंद्र शोधू.",
+    phoneLabel: "फोन नंबर",
+    phoneDesc: "— टोकन तयार करण्यासाठी आवश्यक, जेणेकरून आरोग्य कर्मचारी तुमच्याशी संपर्क साधू शकेल",
+    phonePlaceholder: "10-अंकी मोबाइल नंबर",
+    phoneError: "कृपया वैध 10-अंकी मोबाइल नंबर प्रविष्ट करा.",
+    locationOn: "तुमचे लोकेशन वापरत आहे",
+    locationOff: "लोकेशन बंद आहे — फक्त जिल्ह्याचा वापर करत आहे",
   },
   ta: {
     greeting:
@@ -213,6 +245,14 @@ export const STRINGS: Record<Lang, Strings> = {
     homeStep2Body: "தூரத்தை மட்டுமல்ல, நேரடி மருத்துவர் இருப்பு மற்றும் மருந்து இருப்பின் அடிப்படையில் PHC-களை நாங்கள் வரிசைப்படுத்துகிறோம்.",
     homeStep3Title: "டோக்கனுடன் செல்லுங்கள்",
     homeStep3Body: "ஒரு டோக்கன் எண்ணைப் பெறுங்கள், எனவே நீங்கள் வருகிறீர்கள் என்பதை மையம் முன்கூட்டியே அறியும்.",
+    chatTitle: "அறிகுறி பரிசோதனை",
+    chatSubtitle: "நீங்கள் எப்படி உணர்கிறீர்கள் என்பதை விவரிக்கவும் — நாங்கள் சரியான மையத்தைக் கண்டுபிடிப்போம்.",
+    phoneLabel: "தொலைபேசி எண்",
+    phoneDesc: "— டோக்கனை உருவாக்க தேவை, எனவே சுகாதாரப் பணியாளர் உங்களைத் தொடர்புகொள்ள முடியும்",
+    phonePlaceholder: "10 இலக்க மொபைல் எண்",
+    phoneError: "சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும்.",
+    locationOn: "உங்கள் லொகேஷனைப் பயன்படுத்துகிறது",
+    locationOff: "லொகேஷன் முடக்கப்பட்டுள்ளது — மாவட்டத்தை மட்டும் பயன்படுத்துகிறது",
   },
 };
 

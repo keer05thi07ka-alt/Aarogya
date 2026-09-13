@@ -267,28 +267,28 @@ function ChatPageContent() {
         {locationChecked && (
           <span className="flex items-center gap-1 text-xs text-muted-foreground">
             <MapPin className="size-3.5" />
-            {userCoords ? "Using your location" : "Location off — using district only"}
+            {userCoords ? strings.locationOn : strings.locationOff}
           </span>
         )}
       </div>
 
       <div className="mb-4">
         <label className="mb-1 flex items-center gap-1 text-xs font-medium text-muted-foreground">
-          Phone number <span className="text-destructive">*</span>
-          <span className="font-normal">— required to generate a token, so a health worker can reach you</span>
+          {strings.phoneLabel} <span className="text-destructive">*</span>
+          <span className="font-normal">{strings.phoneDesc}</span>
         </label>
         <Input
           type="tel"
           inputMode="numeric"
           maxLength={10}
-          placeholder="10-digit mobile number"
+          placeholder={strings.phonePlaceholder}
           value={patientPhone}
           onChange={(e) => store.setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
           onBlur={() => setPhoneTouched(true)}
           className={`max-w-xs ${phoneTouched && !phoneValid ? "border-destructive focus-visible:ring-destructive" : ""}`}
         />
         {phoneTouched && !phoneValid && (
-          <p className="mt-1 text-xs text-destructive">Enter a valid 10-digit mobile number.</p>
+          <p className="mt-1 text-xs text-destructive">{strings.phoneError}</p>
         )}
       </div>
 
