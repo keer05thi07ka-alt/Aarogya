@@ -26,8 +26,10 @@ import {
   Database,
   Pill,
   Stethoscope,
+  Download
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { downloadCSV } from "@/lib/export";
 
 export const Route = createFileRoute("/facility-dashboard")({
   head: () => ({ meta: [{ title: "Facility dashboard — Aarogya Setu Kadi" }] }),
@@ -94,10 +96,30 @@ function FacilityDashboardContent() {
       : []),
   ];
 
+  const handleExport = () => {
+    const exportData = queue.map((c) => ({
+      "Token": c.tokenNumber,
+      "Patient Name": c.patientRef,
+      "Phone": c.phone,
+      "Symptoms": c.healthIssue,
+      "Priority": c.analysis.triage,
+      "Status": c.status,
+      "Created At": new Date(c.createdAt).toLocaleString(),
+    }));
+    downloadCSV(exportData, `Facility_${facility.name}_Patients`);
+  };
+
   return (
     <AppShell
       title={facility.name}
       subtitle={`${facility.phcId} · ${facility.district} — your facility's live status and patient queue`}
+      actions={
+        <div className="flex gap-2">
+          <Button variant="outline" onClick={handleExport} className="gap-2">
+            <Download className="size-4" /> Export Excel
+          </Button>
+        </div>
+      }
     >
       <div className="mb-3 flex justify-end gap-2">
         <DataFreshnessBadge label="Doctor data" timestamp={freshness.doctors} />

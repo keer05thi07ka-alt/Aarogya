@@ -8,6 +8,9 @@ import { store, useAppState } from "@/lib/store";
 import type { Session } from "@/lib/types";
 import { Phone } from "lucide-react";
 
+import { Download } from "lucide-react";
+import { downloadCSV } from "@/lib/export";
+
 export const Route = createFileRoute("/asha")({
   head: () => ({ meta: [{ title: "Health worker — Aarogya Setu Kadi" }] }),
   component: AshaPage,
@@ -26,10 +29,30 @@ function AshaPageContent() {
   const district = (session as Extract<Session, { role: "asha" }>).district;
   const active = cases.filter((c) => c.district === district && c.status !== "Completed");
 
+  const handleExport = () => {
+    const exportData = active.map((c) => ({
+      "Token": c.tokenNumber,
+      "Patient Name": c.patientRef,
+      "Phone": c.phone,
+      "Health Issue": c.healthIssue,
+      "Priority": c.analysis.triage,
+      "Assigned Facility": c.facilityName,
+      "Status": c.status,
+      "Follow-up Required": c.followUpRequired ? "Yes" : "No",
+      "Created At": new Date(c.createdAt).toLocaleString(),
+    }));
+    downloadCSV(exportData, `ASHA_Patients_${district}`);
+  };
+
   return (
     <AppShell
       title="Health worker view"
       subtitle={`Referred patients in ${district} · status is set by the facility — call anyone stuck waiting.`}
+      actions={
+        <Button variant="outline" onClick={handleExport} className="gap-2">
+          <Download className="size-4" /> Export Excel
+        </Button>
+      }
     >
       {active.length === 0 ? (
         <Card>

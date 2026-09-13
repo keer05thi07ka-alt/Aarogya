@@ -15,6 +15,10 @@ export const Route = createFileRoute("/district")({
 import { AlertTriangle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+import { Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { downloadCSV } from "@/lib/export";
+
 function DistrictPage() {
   const { overrides } = useAppState();
   const list = useMemo(() => effectiveList(overrides), [overrides]);
@@ -31,8 +35,27 @@ function DistrictPage() {
     return { district, facilities, doctorPct, avgStock, critical };
   }).sort((a, b) => a.doctorPct - b.doctorPct);
 
+  const handleExport = () => {
+    const exportData = rows.map((row) => ({
+      "District": row.district,
+      "Total Facilities": row.facilities.length,
+      "Doctor Availability (%)": row.doctorPct,
+      "Avg Stock Sufficiency (%)": row.avgStock,
+      "Facilities with Critical Stockouts": row.critical,
+    }));
+    downloadCSV(exportData, `District_Overview_Report`);
+  };
+
   return (
-    <AppShell title="District overview" subtitle="Aggregated doctor availability and stock health by district">
+    <AppShell 
+      title="District overview" 
+      subtitle="Aggregated doctor availability and stock health by district"
+      actions={
+        <Button variant="outline" onClick={handleExport} className="gap-2">
+          <Download className="size-4" /> Export Excel
+        </Button>
+      }
+    >
       
       <div className="mb-8">
         <Alert variant="destructive" className="border-red-500/50 bg-red-500/10 text-red-700 dark:text-red-400">

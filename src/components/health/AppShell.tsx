@@ -39,10 +39,12 @@ export function AppShell({
   children,
   title,
   subtitle,
+  actions,
 }: {
   children: ReactNode;
   title?: string;
   subtitle?: string;
+  actions?: ReactNode;
 }) {
   const { session } = useAppState();
   const navigate = useNavigate();
@@ -118,9 +120,12 @@ export function AppShell({
       </header>
       <main className="mx-auto max-w-6xl px-4 py-8">
         {title && (
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-foreground">{title}</h1>
-            {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+              {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
+            </div>
+            {actions && <div>{actions}</div>}
           </div>
         )}
         {children}
