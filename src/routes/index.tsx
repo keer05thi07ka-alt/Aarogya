@@ -64,6 +64,9 @@ function Index() {
                   ? "आस-पास के केंद्र खोजें"
                   : lang === "mr"
                     ? "जवळपासची केंद्रे शोधा"
+                    : "Browse nearby facilities"}
+            </Link>
+          </Button>
         </div>
       </section>
 
