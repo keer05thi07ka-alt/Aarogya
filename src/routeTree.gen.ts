@@ -20,6 +20,7 @@ import { Route as HistoryRouteImport } from './routes/history'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SimulatorRouteImport } from './routes/simulator'
 import { Route as TokenRouteImport } from './routes/token'
+import { Route as WhatsappRouteImport } from './routes/whatsapp'
 import { Route as FacilityIdRouteImport } from './routes/facility/$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -77,6 +78,11 @@ const TokenRoute = TokenRouteImport.update({
   path: '/token',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WhatsappRoute = WhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FacilityIdRoute = FacilityIdRouteImport.update({
   id: '/facility/$id',
   path: '/facility/$id',
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/simulator': typeof SimulatorRoute
   '/token': typeof TokenRoute
+  '/whatsapp': typeof WhatsappRoute
   '/facility/$id': typeof FacilityIdRoute
 }
 export interface FileRoutesByTo {
@@ -109,6 +116,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/simulator': typeof SimulatorRoute
   '/token': typeof TokenRoute
+  '/whatsapp': typeof WhatsappRoute
   '/facility/$id': typeof FacilityIdRoute
 }
 export interface FileRoutesById {
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/simulator': typeof SimulatorRoute
   '/token': typeof TokenRoute
+  '/whatsapp': typeof WhatsappRoute
   '/facility/$id': typeof FacilityIdRoute
 }
 export interface FileRouteTypes {
@@ -140,6 +149,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/simulator'
     | '/token'
+    | '/whatsapp'
     | '/facility/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/simulator'
     | '/token'
+    | '/whatsapp'
     | '/facility/$id'
   id:
     | '__root__'
@@ -168,6 +179,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/simulator'
     | '/token'
+    | '/whatsapp'
     | '/facility/$id'
   fileRoutesById: FileRoutesById
 }
@@ -183,6 +195,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   SimulatorRoute: typeof SimulatorRoute
   TokenRoute: typeof TokenRoute
+  WhatsappRoute: typeof WhatsappRoute
   FacilityIdRoute: typeof FacilityIdRoute
 }
 
@@ -265,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TokenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/whatsapp': {
+      id: '/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/whatsapp'
+      preLoaderRoute: typeof WhatsappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/facility/$id': {
       id: '/facility/$id'
       path: '/facility/$id'
@@ -287,6 +307,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   SimulatorRoute: SimulatorRoute,
   TokenRoute: TokenRoute,
+  WhatsappRoute: WhatsappRoute,
   FacilityIdRoute: FacilityIdRoute,
 }
 export const routeTree = rootRouteImport
