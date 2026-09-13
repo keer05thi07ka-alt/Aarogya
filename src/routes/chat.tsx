@@ -52,9 +52,10 @@ function isValidPhone(phone: string): boolean {
 function ChatPageContent() {
   const navigate = useNavigate();
   const { overrides, patientRef, patientPhone, lang } = useAppState();
-  // Always use English source strings so Google Translate doesn't try to double-translate 
-  // already localized text, which causes gibberish.
-  const strings = STRINGS["en"];
+  
+  // Use localized strings directly
+  const strings = STRINGS[lang as Lang] || STRINGS.en;
+  
   const [phoneTouched, setPhoneTouched] = useState(false);
   const phoneValid = isValidPhone(patientPhone);
 
