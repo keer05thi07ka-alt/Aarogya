@@ -233,9 +233,42 @@ function FacilityDashboardContent() {
         <CardContent className="pt-5">
           <div className="mb-3 flex items-center justify-between">
             <p className="font-semibold text-foreground">Patient queue</p>
-            <Button asChild variant="outline" size="sm">
-              <Link to="/simulator">Open simulator</Link>
-            </Button>
+            <div className="flex gap-2">
+              <Button onClick={() => {
+                const id = `CASE-${new Date().toISOString().replace(/\D/g, "").slice(0, 14)}`;
+                store.addCase({
+                  caseId: id,
+                  tokenId: `TKN-${Math.floor(Math.random() * 90000) + 10000}`,
+                  tokenNumber: `W-${Math.floor(Math.random() * 900) + 100}`,
+                  patientRef: "Walk-in Patient",
+                  phone: "N/A",
+                  healthIssue: "Walk-in (General Checkup)",
+                  analysis: {
+                    symptoms: ["Walk-in"],
+                    duration: "N/A",
+                    severity: "Low",
+                    context: "Walk-in",
+                    careRequirement: "Consultation",
+                    triage: "Routine",
+                    explanation: "Walk-in patient at facility",
+                    source: "rules"
+                  },
+                  phcId: phcId,
+                  facilityName: facility.name,
+                  district: facility.district,
+                  suitability: 100,
+                  status: "Waiting",
+                  reason: "Walk-in registration",
+                  followUpRequired: false,
+                  createdAt: new Date().toISOString()
+                });
+              }} variant="secondary" size="sm">
+                Log Walk-in
+              </Button>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/simulator">Open simulator</Link>
+              </Button>
+            </div>
           </div>
 
           {queue.length === 0 ? (
