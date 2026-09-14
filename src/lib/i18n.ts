@@ -48,6 +48,18 @@ type Strings = {
   phoneError: string;
   locationOn: string;
   locationOff: string;
+  navFacilities: string;
+  navDistrict: string;
+  navChat: string;
+  navMyCases: string;
+  navRolePatient: string;
+  navRoleAsha: string;
+  navRoleAdmin: string;
+  navSwitchRole: string;
+  facTitle: string;
+  facSearch: string;
+  facDistance: string;
+  facQueue: string;
 };
 
 export const STRINGS: Record<Lang, Strings> = {
@@ -103,6 +115,18 @@ export const STRINGS: Record<Lang, Strings> = {
     phoneError: "Enter a valid 10-digit mobile number.",
     locationOn: "Using your location",
     locationOff: "Location off — using district only",
+    navFacilities: "Facilities",
+    navDistrict: "District",
+    navChat: "Chat",
+    navMyCases: "My cases",
+    navRolePatient: "Patient",
+    navRoleAsha: "ASHA",
+    navRoleAdmin: "Admin",
+    navSwitchRole: "Switch role",
+    facTitle: "All Facilities",
+    facSearch: "Search hospitals, specialties...",
+    facDistance: "distance",
+    facQueue: "live queue",
   },
   hi: {
     greeting:
@@ -152,6 +176,18 @@ export const STRINGS: Record<Lang, Strings> = {
     phoneError: "कृपया एक वैध 10-अंकीय मोबाइल नंबर दर्ज करें।",
     locationOn: "आपके लोकेशन का उपयोग कर रहा है",
     locationOff: "लोकेशन बंद है — केवल जिले का उपयोग कर रहा है",
+    navFacilities: "सुविधाएं",
+    navDistrict: "ज़िला",
+    navChat: "चैट",
+    navMyCases: "मेरे मामले",
+    navRolePatient: "मरीज़",
+    navRoleAsha: "आशा",
+    navRoleAdmin: "एडमिन",
+    navSwitchRole: "भूमिका बदलें",
+    facTitle: "सभी सुविधाएं",
+    facSearch: "अस्पताल, विशेषज्ञताएं खोजें...",
+    facDistance: "दूरी",
+    facQueue: "लाइव कतार",
   },
   mr: {
     greeting:
@@ -201,6 +237,18 @@ export const STRINGS: Record<Lang, Strings> = {
     phoneError: "कृपया वैध 10-अंकी मोबाइल नंबर प्रविष्ट करा.",
     locationOn: "तुमचे लोकेशन वापरत आहे",
     locationOff: "लोकेशन बंद आहे — फक्त जिल्ह्याचा वापर करत आहे",
+    navFacilities: "सुविधा",
+    navDistrict: "जिल्हा",
+    navChat: "चॅट",
+    navMyCases: "माझे प्रकरणे",
+    navRolePatient: "रुग्ण",
+    navRoleAsha: "आशा",
+    navRoleAdmin: "प्रशासक",
+    navSwitchRole: "भूमिका बदला",
+    facTitle: "सर्व सुविधा",
+    facSearch: "रुग्णालये, विशेषज्ञा शोधा...",
+    facDistance: "अंतर",
+    facQueue: "लाइव्ह रांग",
   },
   ta: {
     greeting:
@@ -253,6 +301,18 @@ export const STRINGS: Record<Lang, Strings> = {
     phoneError: "சரியான 10 இலக்க மொபைல் எண்ணை உள்ளிடவும்.",
     locationOn: "உங்கள் லொகேஷனைப் பயன்படுத்துகிறது",
     locationOff: "லொகேஷன் முடக்கப்பட்டுள்ளது — மாவட்டத்தை மட்டும் பயன்படுத்துகிறது",
+    navFacilities: "வசதிகள்",
+    navDistrict: "மாவட்டம்",
+    navChat: "அரட்டை",
+    navMyCases: "என் வழக்குகள்",
+    navRolePatient: "நோயாளி",
+    navRoleAsha: "ஆஷா",
+    navRoleAdmin: "நிர்வாகி",
+    navSwitchRole: "பங்கை மாற்றவும்",
+    facTitle: "அனைத்து வசதிகள்",
+    facSearch: "மருத்துவமனைகளைத் தேடுங்கள்...",
+    facDistance: "தூரம்",
+    facQueue: "நேரடி வரிசை",
   },
 };
 

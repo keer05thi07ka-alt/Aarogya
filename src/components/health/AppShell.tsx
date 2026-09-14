@@ -2,38 +2,20 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { HeartPulse, LogOut } from "lucide-react";
 import { useAppState, store } from "@/lib/store";
-import type { Role } from "@/lib/types";
+import type { Role, Lang } from "@/lib/types";
 import { getFacility } from "@/lib/dataset";
 import { Button } from "@/components/ui/button";
 import { VoiceGuide } from "@/components/health/VoiceGuide";
-
-const PUBLIC_NAV = [
-  { to: "/facilities", label: "Facilities" },
-  { to: "/district", label: "District" },
-] as const;
-
-const ROLE_NAV: Record<Role, { to: string; label: string }[]> = {
-  patient: [
-    { to: "/chat", label: "Chat" },
-    { to: "/history", label: "My cases" },
-  ],
-  asha: [
-    { to: "/asha", label: "Health worker" },
-    { to: "/followup", label: "Follow-up" },
-  ],
-  manager: [
-    { to: "/facility-dashboard", label: "Facility" },
-    { to: "/simulator", label: "Simulator" },
-  ],
-};
+import { STRINGS, LANGUAGES } from "@/lib/i18n";
 
 function sessionLabel(
   session: NonNullable<ReturnType<typeof useAppState>["session"]>,
+  strings: any
 ): string {
-  if (session.role === "patient") return "Patient";
-  if (session.role === "asha") return `${session.name} · ${session.district}`;
+  if (session.role === "patient") return strings.navRolePatient || "Patient";
+  if (session.role === "asha") return `${session.name} — ${session.district}`;
   const facility = getFacility(session.phcId);
-  return `${session.name} · ${facility?.name ?? session.phcId}`;
+  return `${session.name} — ${facility?.name ?? session.phcId}`;
 }
 
 export function AppShell({
@@ -47,12 +29,34 @@ export function AppShell({
   subtitle?: string;
   actions?: ReactNode;
 }) {
-  const { session } = useAppState();
+  const { session, lang } = useAppState();
   const navigate = useNavigate();
+  const strings = STRINGS[lang as Lang] || STRINGS.en;
+
+  const PUBLIC_NAV = [
+    { to: "/facilities", label: strings.navFacilities },
+    { to: "/district", label: strings.navDistrict },
+  ];
+
+  const ROLE_NAV: Record<Role, { to: string; label: string }[]> = {
+    patient: [
+      { to: "/chat", label: strings.navChat },
+      { to: "/history", label: strings.navMyCases },
+    ],
+    asha: [
+      { to: "/asha", label: strings.navRoleAsha || "Health worker" },
+      { to: "/followup", label: "Follow-up" },
+    ],
+    manager: [
+      { to: "/facility-dashboard", label: strings.navRoleAdmin || "Facility" },
+      { to: "/simulator", label: "Simulator" },
+    ],
+  };
+
   const nav = [...PUBLIC_NAV, ...(session ? ROLE_NAV[session.role] : [])];
 
   return (
-    <div className="min-h-screen bg-soft-gradient">
+    <div className="notranslate min-h-screen bg-soft-gradient">
       <header className="sticky top-0 z-30 border-b border-border bg-card/85 backdrop-blur">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">
           <Link to="/" className="flex items-center gap-2">
@@ -80,39 +84,40 @@ export function AppShell({
           </nav>
           <div className="flex items-center gap-2 text-xs">
             <select
-              className="notranslate rounded-md border border-input bg-background px-2 py-1 text-xs text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-              value={useAppState().lang}
+              className="rounded-md border border-input bg-background px-2 py-1 text-xs text-foreground shadow-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+              value={lang}
               onChange={(e) => {
                 const newLang = e.target.value as any;
                 store.setLang(newLang);
-                document.cookie = `googtrans=/en/${newLang}; path=/`;
-                document.cookie = `googtrans=/en/${newLang}; path=/; domain=${window.location.hostname}`;
-                window.location.reload();
+                // No longer reloading page, just let React re-render with new dictionary
               }}
             >
-              <option value="en">English</option>
-              <option value="hi">हिंदी</option>
-              <option value="mr">मराठी</option>
-              <option value="ta">தமிழ்</option>
+              {LANGUAGES.map((l) => (
+                <option key={l.code} value={l.code}>
+                  {l.label}
+                </option>
+              ))}
             </select>
             {session ? (
-              <>
-                <span className="rounded-full bg-secondary px-3 py-1.5 font-medium text-secondary-foreground">
-                  {sessionLabel(session)}
+              <div className="flex items-center gap-2 rounded-full border border-border bg-muted/50 pl-3 pr-1 py-1">
+                <span className="font-medium text-muted-foreground">
+                  {sessionLabel(session, strings)}
                 </span>
                 <Button
                   variant="ghost"
-                  size="sm"
+                  size="icon"
+                  className="h-6 w-6 rounded-full hover:bg-destructive/10 hover:text-destructive"
                   onClick={() => {
                     store.logout();
-                    navigate({ to: "/login" });
+                    navigate({ to: "/" });
                   }}
+                  title={strings.navSwitchRole}
                 >
-                  <LogOut className="size-3.5" /> Switch role
+                  <LogOut className="h-3 w-3" />
                 </Button>
-              </>
+              </div>
             ) : (
-              <Button asChild size="sm" variant="outline">
+              <Button asChild size="sm" variant="outline" className="h-7 text-xs">
                 <Link to="/login">Log in</Link>
               </Button>
             )}

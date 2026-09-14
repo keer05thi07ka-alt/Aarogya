@@ -10,6 +10,8 @@ import { effectiveList, scoreFacility } from "@/lib/recommend";
 import { genericAnalysis } from "@/lib/tokens";
 import { useAppState } from "@/lib/store";
 import { Search } from "lucide-react";
+import { STRINGS } from "@/lib/i18n";
+import type { Lang } from "@/lib/types";
 
 const searchSchema = z.object({ district: z.string().optional() });
 
@@ -22,11 +24,13 @@ export const Route = createFileRoute("/facilities")({
 type StatusFilter = "all" | "critical" | "warning" | "healthy";
 
 function FacilitiesPage() {
-  const { overrides } = useAppState();
+  const { overrides, lang } = useAppState();
   const search = Route.useSearch();
   const [query, setQuery] = useState("");
   const [district, setDistrict] = useState<string>(search.district ?? "all");
   const [status, setStatus] = useState<StatusFilter>("all");
+
+  const strings = STRINGS[lang as Lang] || STRINGS.en;
 
   const ranked = useMemo(() => {
     const analysis = genericAnalysis();
@@ -50,12 +54,12 @@ function FacilitiesPage() {
   });
 
   return (
-    <AppShell title="Nearby facilities" subtitle={`${filtered.length} of ${ranked.length} PHCs shown`}>
-      <div className="mb-6 flex flex-wrap gap-3">
+    <AppShell title={strings.facTitle} subtitle={`${filtered.length} of ${ranked.length} PHCs shown`}>
+      <div className="notranslate mb-6 flex flex-wrap gap-3">
         <div className="relative flex-1 min-w-48">
           <Search className="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Search by name or PHC ID"
+            placeholder={strings.facSearch}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="pl-9"
@@ -88,13 +92,11 @@ function FacilitiesPage() {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-border p-10 text-center text-sm text-muted-foreground">
-          No facilities match these filters.
-        </p>
+        <div className="py-12 text-center text-muted-foreground">No facilities found.</div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="notranslate grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((r) => (
-            <FacilityCard key={r.facility.phcId} ranked={r} compact />
+            <FacilityCard key={r.facility.phcId} ranked={r} />
           ))}
         </div>
       )}
