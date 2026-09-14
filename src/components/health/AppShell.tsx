@@ -5,7 +5,6 @@ import { useAppState, store } from "@/lib/store";
 import type { Role, Lang } from "@/lib/types";
 import { getFacility } from "@/lib/dataset";
 import { Button } from "@/components/ui/button";
-import { VoiceGuide } from "@/components/health/VoiceGuide";
 import { STRINGS, LANGUAGES } from "@/lib/i18n";
 
 function sessionLabel(
@@ -136,9 +135,6 @@ export function AppShell({
         )}
         {children}
       </main>
-      
-      {/* Only show voice guide to public users and patients, not staff */}
-      {(!session || session.role === "patient") && <VoiceGuide />}
     </div>
   );
 }
